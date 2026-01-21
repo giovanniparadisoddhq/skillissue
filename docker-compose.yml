@@ -87,7 +87,7 @@ services:
     networks:
       - front-tier
     restart: "no"
-  # skillissue
+  # skillissue_start
   datadog-agent:
     image: gcr.io/datadoghq/agent:7
     container_name: dd-agent-restricted
@@ -104,15 +104,14 @@ services:
       - DD_APM_ENABLED=false
       - DD_PROCESS_AGENT_ENABLED=false
       - DD_DOGSTATSD_NON_LOCAL_TRAFFIC=false
-      
-      
+      # Abaixo linha de comando para evitar o auto-discovery e manter o agente cego.
       - DD_AC_EXCLUDE="name:.*" 
       
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /proc/:/host/proc/:ro
       - /sys/fs/cgroup/:/host/sys/fs/cgroup:ro
-  # --- FIM DA CONFIGURAÇÃO DO DATADOG ---
+  # skillissue_end 
 volumes:
   db-data:
 
